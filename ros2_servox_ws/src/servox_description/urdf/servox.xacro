@@ -1,0 +1,175 @@
+<?xml version="1.0" ?>
+<robot name="servox" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find servox_description)/urdf/materials.xacro" />
+<xacro:include filename="$(find servox_description)/urdf/servox.ros2control" />
+<xacro:include filename="$(find servox_description)/urdf/servox.gazebo" />
+<link name="base_link">
+  <inertial>
+    <origin xyz="2.0104246875423716e-17 0.0 0.0025000000000000005" rpy="0 0 0"/>
+    <mass value="0.4439070419522376"/>
+    <inertia ixx="0.0004" iyy="0.0004" izz="0.000799" ixy="0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find servox_description)/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find servox_description)/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="shoulder_link_1">
+  <inertial>
+    <origin xyz="-0.004821221242970385 -0.0011448943120997157 0.02583971703895212" rpy="0 0 0"/>
+    <mass value="0.22741569326864364"/>
+    <inertia ixx="4.2e-05" iyy="4.4e-05" izz="3.9e-05" ixy="-0.0" iyz="2e-06" ixz="1e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.0 -0.0 -0.005" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find servox_description)/meshes/shoulder_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.0 -0.0 -0.005" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find servox_description)/meshes/shoulder_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="upper_arm_link_1">
+  <inertial>
+    <origin xyz="0.0003055495531080344 -0.019760234565211515 0.054879229563259815" rpy="0 0 0"/>
+    <mass value="0.1020848795823874"/>
+    <inertia ixx="0.000161" iyy="0.000139" izz="2.7e-05" ixy="0.0" iyz="-1e-06" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.00023 -0.0176 -0.039783" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find servox_description)/meshes/upper_arm_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.00023 -0.0176 -0.039783" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find servox_description)/meshes/upper_arm_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="fore_arm_link_1">
+  <inertial>
+    <origin xyz="0.04089105906990618 -0.018312262539509887 4.099476937996505e-06" rpy="0 0 0"/>
+    <mass value="0.21744990656682445"/>
+    <inertia ixx="4.1e-05" iyy="0.000235" izz="0.000268" ixy="-2e-05" iyz="-0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.0 -0.0177 -0.15" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find servox_description)/meshes/fore_arm_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.0 -0.0177 -0.15" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find servox_description)/meshes/fore_arm_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="left_gripper_link_1">
+  <inertial>
+    <origin xyz="0.006711599071377958 0.009142007439031602 0.0025000000000000022" rpy="0 0 0"/>
+    <mass value="0.016608858145375504"/>
+    <inertia ixx="2e-06" iyy="1e-06" izz="3e-06" ixy="-1e-06" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.085077 -0.011519 -0.1576" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find servox_description)/meshes/left_gripper_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.085077 -0.011519 -0.1576" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find servox_description)/meshes/left_gripper_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="right_gripper_link_1">
+  <inertial>
+    <origin xyz="0.006673073283405578 -0.009075346203872573 0.0025000000000000022" rpy="0 0 0"/>
+    <mass value="0.01673818232709913"/>
+    <inertia ixx="2e-06" iyy="1e-06" izz="3e-06" ixy="1e-06" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.084915 0.00652 -0.1576" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find servox_description)/meshes/right_gripper_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.084915 0.00652 -0.1576" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find servox_description)/meshes/right_gripper_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="base_joint" type="revolute">
+  <origin xyz="0.0 0.0 0.005" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="shoulder_link_1"/>
+  <axis xyz="0.0 0.0 1.0"/>
+  <limit upper="1.5708" lower="-1.5708" effort="100" velocity="100"/>
+</joint>
+
+<joint name="shoulder_joint" type="revolute">
+  <origin xyz="0.00023 0.0176 0.034783" rpy="0 0 0"/>
+  <parent link="shoulder_link_1"/>
+  <child link="upper_arm_link_1"/>
+  <axis xyz="0.0 1.0 0.0"/>
+  <limit upper="0.785398" lower="0.0" effort="100" velocity="100"/>
+</joint>
+
+<joint name="elbow_joint" type="revolute">
+  <origin xyz="-0.00023 0.0001 0.110217" rpy="0 0 0"/>
+  <parent link="upper_arm_link_1"/>
+  <child link="fore_arm_link_1"/>
+  <axis xyz="0.0 -1.0 0.0"/>
+  <limit upper="1.396263" lower="-0.785398" effort="100" velocity="100"/>
+</joint>
+
+<joint name="wrist_left_joint" type="revolute">
+  <origin xyz="0.085077 -0.006181 0.0076" rpy="0 0 0"/>
+  <parent link="fore_arm_link_1"/>
+  <child link="left_gripper_link_1"/>
+  <axis xyz="0.0 0.0 1.0"/>
+  <limit upper="0.0" lower="-0.85" effort="100" velocity="100"/>
+  <mimic joint="wrist_right_joint" multiplier="-1" offset="0"/>
+</joint>
+
+<joint name="wrist_right_joint" type="revolute">
+  <origin xyz="0.084915 -0.02422 0.0076" rpy="0 0 0"/>
+  <parent link="fore_arm_link_1"/>
+  <child link="right_gripper_link_1"/>
+  <axis xyz="0.0 0.0 1.0"/>
+  <limit upper="0.85" lower="0.00" effort="100" velocity="100"/>
+  
+</joint>
+
+</robot>

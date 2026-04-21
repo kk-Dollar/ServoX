@@ -1,0 +1,23 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: servox_description
+    relative_path: urdf/servox.xacro
+  srdf:
+    relative_path: config/servox.srdf
+  package_settings:
+    author_name: krishna pandit
+    author_email: imh10019.23@bitmesra.ac.in
+    generated_timestamp: 1776792658
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+  modified_urdf:
+    xacros:
+      - control_xacro
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
