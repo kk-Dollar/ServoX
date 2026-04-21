@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.22)
-project(servox_config)
+project(servox_moveit_config)
 
 find_package(ament_cmake REQUIRED)
 
