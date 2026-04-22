@@ -75,6 +75,13 @@ def generate_launch_description():
         arguments=["-d", rviz_config_file],
     )
 
+    # 6. Commander node (subscriptions for goToNamedTarget / goToJointTarget)
+    commander_node = Node(
+        package="servox_commander",
+        executable="commander",
+        output="screen",
+    )
+
     return LaunchDescription(
         [
             robot_state_publisher_node,
@@ -85,5 +92,7 @@ def generate_launch_description():
             TimerAction(period=2.0, actions=[gripper_controller_spawner]),
             move_group_launch,
             rviz_node,
+            # Start commander after controllers are ready
+            TimerAction(period=5.0, actions=[commander_node]),
         ]
     )

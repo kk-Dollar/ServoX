@@ -1,15 +1,18 @@
 #include <rclcpp/rclcpp.hpp>
-#include<moveit/move_group_interface/move_group_interface.h>
-#include <algorithm>
+#include <moveit/move_group_interface/move_group_interface.h>
 #include <example_interfaces/msg/bool.hpp>
-#include <std_msgs/msg/string.hpp>
-#include <sensor_msgs/msg/joint_state.hpp>
+#include <example_interfaces/msg/float64_multi_array.hpp>
 #include <geometry_msgs/msg/pose.hpp>
+#include <std_msgs/msg/string.hpp>
+
+#include <memory>
+#include <string>
+#include <vector>
 
 using MoveGroupInterface = moveit::planning_interface::MoveGroupInterface;
 using BoolMsg = example_interfaces::msg::Bool;
+using FloatArrayMsg = example_interfaces::msg::Float64MultiArray;
 using StringMsg = std_msgs::msg::String;
-using JointStateMsg = sensor_msgs::msg::JointState;
 using PoseMsg = geometry_msgs::msg::Pose;
 
 class Commander
@@ -26,8 +29,8 @@ public:
     open_gripper_sub_ = node_->create_subscription<BoolMsg>(
       "open_gripper", 10, std::bind(&Commander::openGripperCallback, this, std::placeholders::_1));
 
-    joint_target_sub_ = node_->create_subscription<JointStateMsg>(
-      "joint_target", 10, std::bind(&Commander::jointTargetCallback, this, std::placeholders::_1));
+    joint_command_sub_ = node_->create_subscription<FloatArrayMsg>(
+      "joint_command", 10, std::bind(&Commander::jointCommandCallback, this, std::placeholders::_1));
 
     named_pose_sub_ = node_->create_subscription<StringMsg>(
       "named_pose", 10, std::bind(&Commander::namedPoseCallback, this, std::placeholders::_1));
@@ -41,7 +44,7 @@ public:
     arm_->setNamedTarget(name);
     planAndExecute(arm_);
   }
-  void goToJointTarget(const std::map<std::string, double> &joints)
+  void goToJointTarget(const std::vector<double> &joints)
   {
     arm_->setStartStateToCurrentState();
     arm_->setJointValueTarget(joints);
@@ -96,36 +99,20 @@ private:
     }
   }
 
-  void jointTargetCallback(const JointStateMsg &msg)
+  void jointCommandCallback(const FloatArrayMsg &msg)
   {
-    const auto arm_joint_names = arm_->getJointNames();
-
-    if(msg.name.size() != msg.position.size())
-    {
-      RCLCPP_ERROR(node_->get_logger(), "Joint target: name/position size mismatch.");
-      return;
-    }
-    if(msg.name.size() != arm_joint_names.size())
+    if(msg.data.size() != 3)
     {
       RCLCPP_ERROR(node_->get_logger(),
-        "Joint target: expected %zu joints (arm group), got %zu.",
-        arm_joint_names.size(), msg.name.size());
+        "Joint command: expected 3 joint values for the arm, got %zu.",
+        msg.data.size());
       return;
     }
-    std::map<std::string, double> joint_map;
-    for(size_t i = 0; i < msg.name.size(); ++i)
-    {
-      if(std::find(arm_joint_names.begin(), arm_joint_names.end(), msg.name[i]) == arm_joint_names.end())
-      {
-        RCLCPP_ERROR(node_->get_logger(),
-          "Joint '%s' is not part of the arm group. Arm joints: base_joint, shoulder_joint, elbow_joint.",
-          msg.name[i].c_str());
-        return;
-      }
-      joint_map[msg.name[i]] = msg.position[i];
-    }
-    RCLCPP_INFO(node_->get_logger(), "Received joint target with %zu joints.", joint_map.size());
-    goToJointTarget(joint_map);
+
+    RCLCPP_INFO(node_->get_logger(),
+      "Received joint command: [base=%.3f, shoulder=%.3f, elbow=%.3f]",
+      msg.data[0], msg.data[1], msg.data[2]);
+    goToJointTarget(msg.data);
   }
 
   void namedPoseCallback(const StringMsg &msg)
@@ -147,7 +134,7 @@ private:
   std::shared_ptr<MoveGroupInterface> gripper_;
 
   rclcpp::Subscription<BoolMsg>::SharedPtr open_gripper_sub_;
-  rclcpp::Subscription<JointStateMsg>::SharedPtr joint_target_sub_;
+  rclcpp::Subscription<FloatArrayMsg>::SharedPtr joint_command_sub_;
   rclcpp::Subscription<StringMsg>::SharedPtr named_pose_sub_;
   rclcpp::Subscription<PoseMsg>::SharedPtr pose_target_sub_;
 

@@ -76,10 +76,10 @@ static const joint_config_t ARM_JOINT_CONFIG[ARM_NUM_JOINTS] = {
     {  1,   0.0f,  45.0f,  500.0f,    833.3f,   30.0f,  5.0f,  10.0f },  
     
     /* Elbow: 0 to 90 degrees -> 500 to 1500 us (falls to ~90 due to gravity) */
-    {  2,   0.0f,  90.0f,  500.0f,   1500.0f,   90.0f,  0.0f,  15.0f },  
+    {  2,   -45.0f,  90.0f,  500.0f,   1500.0f,   90.0f,  0.0f,  15.0f },  
     
-    /* Gripper: 6 to 45 degrees -> 500 to 1000 us (6 is fully closed) */
-    {  3,   6.0f,  45.0f,  500.0f,   1000.0f,    6.0f,  6.0f,  15.0f },  
+    /* Gripper reversed: 0 to 48 degrees -> 1000 to 500 us (0 is fully closed) */
+    {  3,   0.0f,  48.0f, 1000.0f,    500.0f,    0.0f,  0.0f,  15.0f },  
 };
 
 /* ═══════════════════════════════════════════════════════════════════════════

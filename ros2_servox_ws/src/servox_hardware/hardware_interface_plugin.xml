@@ -1,0 +1,8 @@
+<library path="servox_hardware">
+  <class
+    name="servox_hardware/ServoXArmHardwareInterface"
+    type="servox_hardware::ServoXArmHardwareInterface"
+    base_class_type="hardware_interface::SystemInterface">
+    <description>Hardware interface for ServoX 3-DOF robotic arm with ESP32 transport</description>
+  </class>
+</library>
