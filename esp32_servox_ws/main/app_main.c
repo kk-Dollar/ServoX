@@ -28,7 +28,7 @@ static const char *TAG = "APP_MAIN";
 void app_main(void)
 {
     ESP_LOGI(TAG, "========================================");
-    ESP_LOGI(TAG, "  ServoX — 4-DOF Robotic Arm");
+    ESP_LOGI(TAG, "  ServoX — 3-DOF Robotic Arm");
     ESP_LOGI(TAG, "  Joints: %d | Control: %d Hz",
              ARM_NUM_JOINTS, CONTROL_LOOP_HZ);
     ESP_LOGI(TAG, "  micro-ROS over WiFi");

@@ -70,7 +70,7 @@ static const joint_config_t ARM_JOINT_CONFIG[ARM_NUM_JOINTS] = {
     /* ch   min°   max°    pulse_min  pulse_max   park°  home°  speed_dps */
     
     /* Base: 0 to 180 degrees -> Uses the full 500 to 2500 us range */
-    {  0,   -90f, 90.0f,  500.0f,   2500.0f,   90.0f, 90.0f,  15.0f },  
+    {  0,   -90.0f, 90.0f,  500.0f,   2500.0f,   90.0f, 90.0f,  15.0f },  
     
     /* Shoulder: 0 to 30 degrees -> 500 to 833 us (falls to ~30 due to gravity) */
     {  1,   0.0f,  45.0f,  500.0f,    833.3f,   30.0f,  5.0f,  10.0f },  

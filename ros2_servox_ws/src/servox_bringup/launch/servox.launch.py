@@ -65,7 +65,7 @@ def generate_launch_description():
 
     # 5. MoveIt 2 - RViz
     rviz_config_file = PathJoinSubstitution(
-        [FindPackageShare("servox_bringup"), "config", "moveit.rviz"]
+        [FindPackageShare("servox_description"), "config", "display.rviz"]
     )
     rviz_node = Node(
         package="rviz2",
